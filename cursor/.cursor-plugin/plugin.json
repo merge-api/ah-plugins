@@ -1,0 +1,28 @@
+{
+  "name": "merge-agent-handler",
+  "version": "1.0.0",
+  "description": "Connect Cursor to 100+ enterprise tools (Jira, Salesforce, HubSpot, Slack, etc.) via Merge Agent Handler",
+  "author": {
+    "name": "Merge"
+  },
+  "homepage": "https://docs.ah.merge.dev",
+  "repository": "https://github.com/merge-api/ah-plugins",
+  "license": "MIT",
+  "keywords": [
+    "merge",
+    "agent-handler",
+    "mcp",
+    "enterprise",
+    "jira",
+    "salesforce",
+    "hubspot",
+    "slack",
+    "gong",
+    "workday",
+    "tool-calling",
+    "tool-discovery",
+    "enterprise-integration",
+    "mcp-server",
+    "cursor-plugin"
+  ]
+}

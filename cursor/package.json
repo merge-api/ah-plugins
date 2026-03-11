@@ -1,0 +1,20 @@
+{
+  "name": "cursor-plugin-merge-agent-handler",
+  "version": "1.0.0",
+  "description": "Cursor plugin for Merge Agent Handler — connect to 100+ enterprise tools via MCP",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "@types/node": "^20.0.0"
+  },
+  "license": "MIT"
+}

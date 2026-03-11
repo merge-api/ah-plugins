@@ -6,18 +6,7 @@ Official plugins that connect AI coding agents to enterprise tools via [Merge Ag
 
 [Merge Agent Handler](https://merge.dev/agent-handler) gives AI agents secure, managed access to hundreds of enterprise applications through a single API and the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/).
 
-Instead of building and maintaining individual integrations, your agent connects to Merge and gets instant access to tools across your entire software stack:
-
-- **Project Management** — Jira, Linear, Asana, Monday.com, ClickUp
-- **CRM** — Salesforce, HubSpot, Pipedrive, Zoho
-- **Communication** — Slack, Microsoft Teams, Discord
-- **ATS & Recruiting** — Greenhouse, Lever, Ashby, Workable
-- **HR & Payroll** — Workday, BambooHR, Gusto, Rippling
-- **Revenue Intelligence** — Gong, Chorus, Clari
-- **Developer Tools** — GitHub, GitLab, Bitbucket
-- **File Storage** — Google Drive, Dropbox, OneDrive, Box
-- **Accounting** — QuickBooks, Xero, NetSuite
-- And many more
+Instead of building and maintaining individual integrations, your agent connects to Merge and gets instant access to tools across your entire software stack — from everyday apps like Jira, Salesforce, Slack, and GitHub to enterprise systems that have never been accessible to AI agents before, like Workday, NetSuite, Tripadvisor, and more.
 
 Each integration is exposed as a set of callable tools (e.g., `jira__create_issue`, `salesforce__search_contacts`, `gong__list_calls`) that your agent can discover, authenticate, and execute.
 

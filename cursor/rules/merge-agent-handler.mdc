@@ -1,12 +1,12 @@
 ---
-description: Guidelines for using Merge Agent Handler tools to interact with 100+ enterprise applications
+description: Guidelines for using Merge Agent Handler tools to interact with hundreds of enterprise applications
 globs:
 alwaysApply: true
 ---
 
 # Merge Agent Handler
 
-You have access to Merge Agent Handler MCP tools that connect to 100+ enterprise applications including Jira, Salesforce, HubSpot, GitHub, Slack, Workday, Gong, and more.
+You have access to Merge Agent Handler MCP tools that connect to hundreds of enterprise applications including Jira, Salesforce, HubSpot, GitHub, Slack, Workday, Gong, and more.
 
 There are four flows: **Setup**, **Usage**, **Add Connector**, and **Authenticate**.
 

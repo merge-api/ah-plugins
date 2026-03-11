@@ -1,11 +1,11 @@
 ---
 name: merge-tools
-description: "Connect to and use 100+ enterprise tools via Merge Agent Handler. Triggers: set up Merge, setup Merge, configure Merge, add connector, add Jira, add Salesforce, add Slack, add Gong, auth Jira, auth Salesforce, auth Slack, auth Gong, authenticate, connect to Jira, create a ticket, search Salesforce, post to Slack, check Workday, use enterprise tools, merge agent handler, list integrations, check Gong, list users, get deals, find leads, show my tickets, create an issue, send a message, find contacts."
+description: "Connect to and use hundreds of enterprise tools via Merge Agent Handler. Triggers: set up Merge, setup Merge, configure Merge, add connector, add Jira, add Salesforce, add Slack, add Gong, auth Jira, auth Salesforce, auth Slack, auth Gong, authenticate, connect to Jira, create a ticket, search Salesforce, post to Slack, check Workday, use enterprise tools, merge agent handler, list integrations, check Gong, list users, get deals, find leads, show my tickets, create an issue, send a message, find contacts."
 ---
 
 # Enterprise Tool Integration via Merge Agent Handler
 
-This skill connects Cursor to 100+ enterprise applications via Merge Agent Handler.
+This skill connects Cursor to hundreds of enterprise applications via Merge Agent Handler.
 
 ## Four Flows
 

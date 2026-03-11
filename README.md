@@ -4,7 +4,7 @@ Official plugins that connect AI coding agents to enterprise tools via [Merge Ag
 
 ## What is Merge Agent Handler?
 
-[Merge Agent Handler](https://merge.dev/agent-handler) gives AI agents secure, managed access to 100+ enterprise applications through a single API and the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/).
+[Merge Agent Handler](https://merge.dev/agent-handler) gives AI agents secure, managed access to hundreds of enterprise applications through a single API and the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/).
 
 Instead of building and maintaining individual integrations, your agent connects to Merge and gets instant access to tools across your entire software stack:
 

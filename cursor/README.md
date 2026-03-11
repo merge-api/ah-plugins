@@ -1,6 +1,6 @@
 # Merge Agent Handler — Cursor Plugin
 
-Connect Cursor's AI agent to **100+ enterprise tools** (Jira, Salesforce, HubSpot, GitHub, Slack, Workday, Gong, and more) via [Merge Agent Handler](https://merge.dev/agent-handler).
+Connect Cursor's AI agent to **hundreds of enterprise tools** (Jira, Salesforce, HubSpot, GitHub, Slack, Workday, Gong, and more) via [Merge Agent Handler](https://merge.dev/agent-handler).
 
 Discover, authenticate, and call enterprise tools directly from Cursor's chat — no context switching required.
 
@@ -11,7 +11,7 @@ This plugin teaches Cursor's AI agent how to interact with Merge Agent Handler. 
 - **Call enterprise tools** — create Jira tickets, search Salesforce contacts, list Gong calls, send Slack messages, and more
 - **Handle authentication** — automatically detects when a connector needs OAuth and generates a link for you to click
 - **Manage resources** — create and configure Tool Packs, Registered Users, and connectors without leaving the IDE
-- **Discover tools dynamically** — searches 100+ integrations by natural language intent (e.g., "find a tool that creates issues")
+- **Discover tools dynamically** — searches hundreds of integrations by natural language intent (e.g., "find a tool that creates issues")
 
 ## What's Included
 

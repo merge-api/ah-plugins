@@ -53,7 +53,7 @@ See the README in each plugin directory for installation and usage instructions.
 
 ### Getting an API Key
 
-Sign up at [ah.merge.dev](https://ah.merge.dev/) to get your `MERGE_API_KEY` (Production or Test Access Key).
+Sign up at [ah.merge.dev/login](https://ah.merge.dev/login) to get your `MERGE_API_KEY` (Production or Test Access Key).
 
 ### Resources
 

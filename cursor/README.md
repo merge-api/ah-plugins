@@ -37,7 +37,7 @@ If you're new to Merge Agent Handler, here's what the terms mean:
 ## Prerequisites
 
 - [Cursor](https://cursor.com) IDE
-- A Merge Agent Handler API key — [sign up at ah.merge.dev](https://ah.merge.dev/)
+- A Merge Agent Handler API key — [sign up at ah.merge.dev](https://ah.merge.dev/login)
 - Node.js 18+
 
 ## Installation
@@ -61,7 +61,7 @@ Add your Merge Agent Handler API key to your shell profile (`~/.zshrc`, `~/.bash
 export MERGE_API_KEY="your-api-key-here"
 ```
 
-You can get your key (Production or Test Access Key) from the [Merge Agent Handler dashboard](https://ah.merge.dev/).
+You can get your key (Production or Test Access Key) from the [Merge Agent Handler dashboard](https://ah.merge.dev/login).
 
 ### 2. Run `/setup`
 

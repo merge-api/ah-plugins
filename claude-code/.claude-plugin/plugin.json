@@ -1,7 +1,7 @@
 {
   "name": "merge-agent-handler",
   "version": "1.0.0",
-  "description": "Connect Claude Code to hundreds of enterprise tools (Jira, Salesforce, HubSpot, Slack, etc.) via Merge Agent Handler",
+  "description": "Connect Claude Code and Cowork to hundreds of enterprise tools (Jira, Salesforce, HubSpot, Slack, etc.) via Merge Agent Handler",
   "author": {
     "name": "Merge"
   },

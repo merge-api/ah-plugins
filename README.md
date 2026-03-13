@@ -34,7 +34,7 @@ All authentication is per-user, so each person connects their own accounts and t
 | Plugin | Agent | Status |
 |--------|-------|--------|
 | [**cursor/**](cursor/) | [Cursor](https://cursor.com) | Available |
-| [**claude-code/**](claude-code/) | [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | Available |
+| [**claude-code/**](claude-code/) | [Claude Code](https://docs.anthropic.com/en/docs/claude-code) / [Cowork](https://claude.ai/cowork) | Available |
 
 ## Getting Started
 

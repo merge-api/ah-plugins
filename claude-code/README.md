@@ -1,12 +1,12 @@
-# Merge Agent Handler — Claude Code Plugin
+# Merge Agent Handler — Claude Code & Cowork Plugin
 
-Connect [Claude Code](https://docs.anthropic.com/en/docs/claude-code) to hundreds of enterprise applications via [Merge Agent Handler](https://merge.dev/agent-handler).
+Connect [Claude Code](https://docs.anthropic.com/en/docs/claude-code) and [Cowork](https://claude.ai/cowork) to hundreds of enterprise applications via [Merge Agent Handler](https://merge.dev/agent-handler).
 
 ## What It Does
 
-This plugin gives Claude Code secure access to enterprise tools like Jira, Salesforce, HubSpot, Slack, Gong, Workday, and hundreds more — all through a single integration. [See all available connectors](https://docs.ah.merge.dev/connectors).
+This plugin gives Claude Code and Cowork secure access to enterprise tools like Jira, Salesforce, HubSpot, Slack, Gong, Workday, and hundreds more — all through a single integration. [See all available connectors](https://docs.ah.merge.dev/connectors).
 
-Once installed, you can ask Claude Code to:
+Once installed, you can ask Claude to:
 - **Create a Jira ticket** for a bug you just found
 - **Search Salesforce contacts** matching a company
 - **Check your Gong calls** from last week
@@ -85,7 +85,7 @@ After setup, just ask naturally:
 The plugin provides:
 
 1. **An MCP server** with 18 tools for managing Merge Agent Handler resources (users, tool packs, connectors, credentials, audit logs)
-2. **A skill** that teaches Claude Code how to use Merge's four workflows (Setup, Add Connector, Authenticate, Usage)
+2. **A skill** that teaches Claude how to use Merge's four workflows (Setup, Add Connector, Authenticate, Usage)
 3. **A setup command** (`/merge-agent-handler:setup`) for interactive guided setup
 
 All enterprise tool calls go through Merge's secure API, with per-user OAuth authentication.

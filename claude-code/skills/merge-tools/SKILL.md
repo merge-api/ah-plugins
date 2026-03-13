@@ -1,14 +1,47 @@
 ---
-description: Guidelines for using Merge Agent Handler tools to interact with hundreds of enterprise applications
-globs:
-alwaysApply: true
+name: merge-tools
+description: "Connect to and use hundreds of enterprise tools via Merge Agent Handler. Triggers: set up Merge, setup Merge, configure Merge, add connector, add Jira, add Salesforce, add Slack, add Gong, auth Jira, auth Salesforce, auth Slack, auth Gong, authenticate, connect to Jira, create a ticket, search Salesforce, post to Slack, check Workday, use enterprise tools, merge agent handler, list integrations, check Gong, list users, get deals, find leads, show my tickets, create an issue, send a message, find contacts."
 ---
 
-# Merge Agent Handler
+# Enterprise Tool Integration via Merge Agent Handler
 
-You have access to Merge Agent Handler MCP tools that connect to hundreds of enterprise applications including Jira, Salesforce, HubSpot, GitHub, Slack, Workday, Gong, and more.
+This skill connects Claude Code to hundreds of enterprise applications via Merge Agent Handler.
 
-There are four flows: **Setup**, **Usage**, **Add Connector**, and **Authenticate**.
+## Four Flows
+
+### 1. Setup ("set up Merge")
+Interactive guided setup. See the rule guidance below for exact steps:
+- Pick or create a registered user (lists all existing users)
+- Pick or create a tool pack (lists all existing packs)
+- If creating a pack, pick connectors from the full list
+- Stores `registered_user_id` and `tool_pack_id` for session
+
+### 2. Add Connector ("add [integration]")
+Adds a new connector to the current tool pack without re-running full setup:
+- Finds the connector by name
+- Calls `update_tool_pack` to add it to existing pack
+- Example: "add Slack", "add GitHub", "add Salesforce"
+
+### 3. Authenticate ("auth [integration]")
+Generates an auth link for a connector:
+- Calls `create_link_token` for the current user + connector
+- Presents the link for the user to complete OAuth
+- Example: "auth Gong", "auth Jira", "connect Salesforce"
+
+### 4. Usage (enterprise tool requests)
+Requires setup first. Two tool calls:
+1. `search_tools` → find the right tool by intent
+2. `call_tool` → execute it
+- Example: "Check my Gong users", "Create a Jira ticket"
+
+## Quick Reference
+
+| User says | Flow | Key tool calls |
+|-----------|------|---------------|
+| "set up Merge" | Setup | `list_registered_users`, `list_tool_packs`, `list_connectors`, `create_*` |
+| "add Slack" | Add Connector | `list_connectors`, `get_tool_pack`, `update_tool_pack` |
+| "auth Gong" | Authenticate | `create_link_token` |
+| "Check my Gong users" | Usage | `search_tools`, `call_tool` |
 
 ---
 
@@ -20,7 +53,7 @@ Use `curl` via the terminal for ALL Merge API calls. This ensures arguments are 
 curl -s -X <METHOD> "https://ah-api.merge.dev/api/v1<PATH>" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
   -H "Content-Type: application/json" \
-  -H "X-Source: cursor-plugin" \
+  -H "X-Source: claude-code-plugin" \
   -d '<JSON_BODY>'
 ```
 
@@ -38,7 +71,7 @@ Omitting `tool_names` or passing an empty array means **NO tools** will be avail
    ```bash
    curl -s "https://ah-api.merge.dev/api/v1/connectors/<connector_slug>" \
      -H "Authorization: Bearer $MERGE_API_KEY" \
-     -H "X-Source: cursor-plugin"
+     -H "X-Source: claude-code-plugin"
    ```
 2. Parse the response — the `tools` array contains ALL tools the connector supports (regardless of auth status). Extract every tool `name`.
 3. Include ALL tool names when creating or updating the tool pack:
@@ -77,7 +110,7 @@ API list responses can be very large. To keep things manageable:
 ```bash
 curl -s "https://ah-api.merge.dev/api/v1/connectors" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin" | python3 -c "
+  -H "X-Source: claude-code-plugin" | python3 -c "
 import json, sys
 data = json.load(sys.stdin)
 items = data.get('results', data) if isinstance(data, dict) else data
@@ -118,12 +151,12 @@ This way the user doesn't need to re-run setup every conversation.
 # Production users
 curl -s "https://ah-api.merge.dev/api/v1/registered-users?is_test=false" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin"
+  -H "X-Source: claude-code-plugin"
 
 # Test users
 curl -s "https://ah-api.merge.dev/api/v1/registered-users?is_test=true" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin"
+  -H "X-Source: claude-code-plugin"
 ```
 **IMPORTANT:** Always fetch BOTH production and test users and combine results. The response format is `{"results": [...], "next": ...}`. The default (no `is_test` param) may only return production users.
 
@@ -131,21 +164,21 @@ curl -s "https://ah-api.merge.dev/api/v1/registered-users?is_test=true" \
 ```bash
 curl -s "https://ah-api.merge.dev/api/v1/tool-packs/" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin"
+  -H "X-Source: claude-code-plugin"
 ```
 
 **List Connectors:**
 ```bash
 curl -s "https://ah-api.merge.dev/api/v1/connectors" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin"
+  -H "X-Source: claude-code-plugin"
 ```
 
 **Get Connector by Slug:**
 ```bash
 curl -s "https://ah-api.merge.dev/api/v1/connectors/<slug>" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin"
+  -H "X-Source: claude-code-plugin"
 ```
 
 **Create Registered User:**
@@ -153,7 +186,7 @@ curl -s "https://ah-api.merge.dev/api/v1/connectors/<slug>" \
 curl -s -X POST "https://ah-api.merge.dev/api/v1/registered-users" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
   -H "Content-Type: application/json" \
-  -H "X-Source: cursor-plugin" \
+  -H "X-Source: claude-code-plugin" \
   -d '{"origin_user_id": "<email>", "origin_user_name": "<display name>", "user_type": "HUMAN"}'
 ```
 For test users, add `?is_test=true` to the URL.
@@ -162,7 +195,7 @@ For test users, add `?is_test=true` to the URL.
 ```bash
 curl -s "https://ah-api.merge.dev/api/v1/registered-users/<id>" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin"
+  -H "X-Source: claude-code-plugin"
 ```
 
 **Update Registered User:**
@@ -170,7 +203,7 @@ curl -s "https://ah-api.merge.dev/api/v1/registered-users/<id>" \
 curl -s -X PATCH "https://ah-api.merge.dev/api/v1/registered-users/<id>" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
   -H "Content-Type: application/json" \
-  -H "X-Source: cursor-plugin" \
+  -H "X-Source: claude-code-plugin" \
   -d '{"origin_user_name": "<new name>"}'
 ```
 
@@ -178,7 +211,7 @@ curl -s -X PATCH "https://ah-api.merge.dev/api/v1/registered-users/<id>" \
 ```bash
 curl -s -X DELETE "https://ah-api.merge.dev/api/v1/registered-users/<id>" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin"
+  -H "X-Source: claude-code-plugin"
 ```
 
 **Create Tool Pack (omit tool_names initially — discover and add them via tools/list + PATCH):**
@@ -186,7 +219,7 @@ curl -s -X DELETE "https://ah-api.merge.dev/api/v1/registered-users/<id>" \
 curl -s -X POST "https://ah-api.merge.dev/api/v1/tool-packs/" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
   -H "Content-Type: application/json" \
-  -H "X-Source: cursor-plugin" \
+  -H "X-Source: claude-code-plugin" \
   -d '{"name": "<name>", "description": "<desc>", "connectors": [{"connector_id": "<uuid>", "auth_scope": "INDIVIDUAL"}]}'
 ```
 
@@ -194,7 +227,7 @@ curl -s -X POST "https://ah-api.merge.dev/api/v1/tool-packs/" \
 ```bash
 curl -s "https://ah-api.merge.dev/api/v1/tool-packs/<id>/" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin"
+  -H "X-Source: claude-code-plugin"
 ```
 
 **Update Tool Pack (FULL connectors array required — include tool_names for each connector):**
@@ -202,7 +235,7 @@ curl -s "https://ah-api.merge.dev/api/v1/tool-packs/<id>/" \
 curl -s -X PATCH "https://ah-api.merge.dev/api/v1/tool-packs/<id>/" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
   -H "Content-Type: application/json" \
-  -H "X-Source: cursor-plugin" \
+  -H "X-Source: claude-code-plugin" \
   -d '{"connectors": [{"connector_id": "<uuid1>", "auth_scope": "INDIVIDUAL"}, {"connector_id": "<uuid2>", "auth_scope": "INDIVIDUAL"}]}'
 ```
 
@@ -210,7 +243,7 @@ curl -s -X PATCH "https://ah-api.merge.dev/api/v1/tool-packs/<id>/" \
 ```bash
 curl -s -X DELETE "https://ah-api.merge.dev/api/v1/tool-packs/<id>/" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin"
+  -H "X-Source: claude-code-plugin"
 ```
 
 **Create Link Token (for authentication):**
@@ -218,7 +251,7 @@ curl -s -X DELETE "https://ah-api.merge.dev/api/v1/tool-packs/<id>/" \
 curl -s -X POST "https://ah-api.merge.dev/api/v1/registered-users/<registered_user_id>/link-token" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
   -H "Content-Type: application/json" \
-  -H "X-Source: cursor-plugin" \
+  -H "X-Source: claude-code-plugin" \
   -d '{"connector": "<connector_slug>"}'
 ```
 
@@ -226,7 +259,7 @@ curl -s -X POST "https://ah-api.merge.dev/api/v1/registered-users/<registered_us
 ```bash
 curl -s -X DELETE "https://ah-api.merge.dev/api/v1/credentials/registered-users/<registered_user_id>/connectors/<connector_slug>" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin"
+  -H "X-Source: claude-code-plugin"
 ```
 
 **Search Tools:**
@@ -234,7 +267,7 @@ curl -s -X DELETE "https://ah-api.merge.dev/api/v1/credentials/registered-users/
 curl -s -X POST "https://ah-api.merge.dev/api/v1/tool-packs/<tool_pack_id>/registered-users/<registered_user_id>/search" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
   -H "Content-Type: application/json" \
-  -H "X-Source: cursor-plugin" \
+  -H "X-Source: claude-code-plugin" \
   -d '{"intent": "<natural language description of what the user wants>"}'
 ```
 
@@ -243,7 +276,7 @@ curl -s -X POST "https://ah-api.merge.dev/api/v1/tool-packs/<tool_pack_id>/regis
 curl -s -X POST "https://ah-api.merge.dev/api/v1/tool-packs/<tool_pack_id>/registered-users/<registered_user_id>/mcp" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
   -H "Content-Type: application/json" \
-  -H "X-Source: cursor-plugin" \
+  -H "X-Source: claude-code-plugin" \
   -d '{"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "<tool_name>", "arguments": {"input": {}}}}'
 ```
 
@@ -252,7 +285,7 @@ curl -s -X POST "https://ah-api.merge.dev/api/v1/tool-packs/<tool_pack_id>/regis
 curl -s -X POST "https://ah-api.merge.dev/api/v1/tool-packs/<tool_pack_id>/registered-users/<registered_user_id>/mcp" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
   -H "Content-Type: application/json" \
-  -H "X-Source: cursor-plugin" \
+  -H "X-Source: claude-code-plugin" \
   -d '{"jsonrpc": "2.0", "id": 1, "method": "tools/list", "params": {}}'
 ```
 
@@ -279,7 +312,7 @@ If the output is empty, **stop and guide the user**:
 >    ```
 >    export MERGE_API_KEY="your-key-here"
 >    ```
-> 4. Then either open a new terminal and restart Cursor, or run `source ~/.zshrc`
+> 4. Then either open a new terminal and restart Claude Code, or run `source ~/.zshrc`
 >
 > Once your key is set, say "set up Merge" again.
 
@@ -296,7 +329,7 @@ If the file exists and contains valid data, fetch the tool pack to get current c
 ```bash
 curl -s "https://ah-api.merge.dev/api/v1/tool-packs/<tool_pack_id>/" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin"
+  -H "X-Source: claude-code-plugin"
 ```
 
 ```
@@ -328,7 +361,7 @@ Fetch BOTH production and test users by making two curl calls (pipe through pyth
 ```bash
 curl -s "https://ah-api.merge.dev/api/v1/registered-users?is_test=false" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin" | python3 -c "
+  -H "X-Source: claude-code-plugin" | python3 -c "
 import json, sys
 data = json.load(sys.stdin)
 for u in data.get('results', []):
@@ -367,14 +400,14 @@ What type of user?
 ### Step 2: Select or Create a Tool Pack
 
 Before presenting options, briefly explain:
-> **What's a Tool Pack?** A Tool Pack is a bundle of enterprise integrations (connectors) that you want to use together. For example, a Tool Pack might include Jira + Slack + Gong so you can create tickets, send messages, and check call data — all from Cursor.
+> **What's a Tool Pack?** A Tool Pack is a bundle of enterprise integrations (connectors) that you want to use together. For example, a Tool Pack might include Jira + Slack + Gong so you can create tickets, send messages, and check call data — all from Claude Code.
 
 Use **curl** to GET `/tool-packs/` and pipe through python3 to extract clean data. Present ALL returned tool packs in a numbered list:
 ```
 Which Tool Pack would you like to use?
 
 1. Create a new Tool Pack
-2. Pritak's Cursor Tool Pack — Tool pack created via Cursor Agent (connectors: gong, jira)
+2. Pritak's Claude Code Tool Pack — Tool pack created via Claude Code Agent (connectors: gong, jira)
 3. Sales Team Pack — CRM integrations (connectors: salesforce, hubspot)
 ```
 
@@ -401,7 +434,7 @@ After the user selects:
    ```bash
    curl -s "https://ah-api.merge.dev/api/v1/connectors/<connector_slug>" \
      -H "Authorization: Bearer $MERGE_API_KEY" \
-     -H "X-Source: cursor-plugin"
+     -H "X-Source: claude-code-plugin"
    ```
    Parse the `tools` array from each response — extract every tool `name`. Do this for EACH selected connector.
 
@@ -410,8 +443,8 @@ After the user selects:
    curl -s -X POST "https://ah-api.merge.dev/api/v1/tool-packs/" \
      -H "Authorization: Bearer $MERGE_API_KEY" \
      -H "Content-Type: application/json" \
-     -H "X-Source: cursor-plugin" \
-     -d '{"name": "<name>", "description": "Tool pack created via Cursor Agent", "connectors": [{"connector_id": "<uuid>", "auth_scope": "INDIVIDUAL", "tool_names": ["<all>", "<tool>", "<names>"]}]}'
+     -H "X-Source: claude-code-plugin" \
+     -d '{"name": "<name>", "description": "Tool pack created via Claude Code Agent", "connectors": [{"connector_id": "<uuid>", "auth_scope": "INDIVIDUAL", "tool_names": ["<all>", "<tool>", "<names>"]}]}'
    ```
    Include the complete `tool_names` array for each connector from step 1.
 
@@ -476,7 +509,7 @@ You MUST already have `registered_user_id` and `tool_pack_id` (from session file
    ```bash
    curl -s "https://ah-api.merge.dev/api/v1/connectors/<connector_slug>" \
      -H "Authorization: Bearer $MERGE_API_KEY" \
-     -H "X-Source: cursor-plugin"
+     -H "X-Source: claude-code-plugin"
    ```
    Parse the `tools` array and extract every tool `name`.
 
@@ -543,7 +576,7 @@ You MUST immediately do this instead:
    curl -s -X POST "https://ah-api.merge.dev/api/v1/registered-users/<registered_user_id>/link-token" \
      -H "Authorization: Bearer $MERGE_API_KEY" \
      -H "Content-Type: application/json" \
-     -H "X-Source: cursor-plugin" \
+     -H "X-Source: claude-code-plugin" \
      -d '{"connector": "<connector_slug>"}'
    ```
 4. Present the link: "Click this link to connect your [connector name] account. Once done, ask me again and I'll be able to access your data."

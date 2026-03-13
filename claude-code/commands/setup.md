@@ -28,7 +28,7 @@ You need a Merge API key to use Agent Handler. Here's how to set it up:
    export MERGE_API_KEY="your-key-here"
 
 4. Then either:
-   - Open a new terminal and restart Cursor, OR
+   - Open a new terminal and restart Claude Code, OR
    - Run: source ~/.zshrc (or ~/.bashrc)
 
 Once your key is set, run this setup again.
@@ -53,7 +53,7 @@ Fetch ONLY the tool pack to get current connector info:
 ```bash
 curl -s "https://ah-api.merge.dev/api/v1/tool-packs/<tool_pack_id>/" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin"
+  -H "X-Source: claude-code-plugin"
 ```
 
 Then present to the user:
@@ -86,7 +86,7 @@ Fetch BOTH production and test users:
 ```bash
 curl -s "https://ah-api.merge.dev/api/v1/registered-users?is_test=false" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin" | python3 -c "
+  -H "X-Source: claude-code-plugin" | python3 -c "
 import json, sys
 data = json.load(sys.stdin)
 for u in data.get('results', []):
@@ -116,7 +116,7 @@ Then create via curl:
 curl -s -X POST "https://ah-api.merge.dev/api/v1/registered-users" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
   -H "Content-Type: application/json" \
-  -H "X-Source: cursor-plugin" \
+  -H "X-Source: claude-code-plugin" \
   -d '{"origin_user_id": "<git email>", "origin_user_name": "<git name>", "user_type": "HUMAN"}'
 ```
 For test users, add `?is_test=true` to the URL. Use the returned `id` as `registered_user_id`.
@@ -130,13 +130,13 @@ For test users, add `?is_test=true` to the URL. Use the returned `id` as `regist
 ## Step 2: Select or Create a Tool Pack
 
 Explain briefly:
-> **What's a Tool Pack?** A bundle of enterprise integrations (connectors) you want to use together — e.g., Jira + Slack + Gong for tickets, messages, and call data, all from Cursor.
+> **What's a Tool Pack?** A bundle of enterprise integrations (connectors) you want to use together — e.g., Jira + Slack + Gong for tickets, messages, and call data, all from Claude Code.
 
 Fetch tool packs:
 ```bash
 curl -s "https://ah-api.merge.dev/api/v1/tool-packs/" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin" | python3 -c "
+  -H "X-Source: claude-code-plugin" | python3 -c "
 import json, sys
 data = json.load(sys.stdin)
 packs = data.get('results', data) if isinstance(data, dict) else data
@@ -151,7 +151,7 @@ Present as numbered list:
 Which Tool Pack would you like to use?
 
 1. Create a new Tool Pack
-2. Pritak's Cursor Tool Pack — Tool pack created via Cursor Agent (connectors: gong, jira)
+2. Pritak's Claude Code Tool Pack — Tool pack created via Claude Code Agent (connectors: gong, jira)
 3. Sales Team Pack — CRM integrations (connectors: salesforce, hubspot)
 ```
 
@@ -169,7 +169,7 @@ Fetch all connectors:
 ```bash
 curl -s "https://ah-api.merge.dev/api/v1/connectors" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin" | python3 -c "
+  -H "X-Source: claude-code-plugin" | python3 -c "
 import json, sys
 data = json.load(sys.stdin)
 items = data.get('results', data) if isinstance(data, dict) else data
@@ -189,7 +189,7 @@ For EACH selected connector, fetch its full tool list via `GET /connectors/{slug
 ```bash
 curl -s "https://ah-api.merge.dev/api/v1/connectors/<connector_slug>" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
-  -H "X-Source: cursor-plugin"
+  -H "X-Source: claude-code-plugin"
 ```
 Parse the `tools` array from each response — extract every tool `name` (e.g., `gong__list_users`, `jira__create_issue`).
 
@@ -200,8 +200,8 @@ Parse the `tools` array from each response — extract every tool `name` (e.g., 
 curl -s -X POST "https://ah-api.merge.dev/api/v1/tool-packs/" \
   -H "Authorization: Bearer $MERGE_API_KEY" \
   -H "Content-Type: application/json" \
-  -H "X-Source: cursor-plugin" \
-  -d '{"name": "<user name>'\''s Cursor Tool Pack", "description": "Tool pack created via Cursor Agent", "connectors": [{"connector_id": "<uuid>", "auth_scope": "INDIVIDUAL", "tool_names": ["connector__tool1", "connector__tool2", ...]}]}'
+  -H "X-Source: claude-code-plugin" \
+  -d '{"name": "<user name>'\''s Claude Code Tool Pack", "description": "Tool pack created via Claude Code Agent", "connectors": [{"connector_id": "<uuid>", "auth_scope": "INDIVIDUAL", "tool_names": ["connector__tool1", "connector__tool2", ...]}]}'
 ```
 Include the FULL `tool_names` array for each connector from Step A.
 

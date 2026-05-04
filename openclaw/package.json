@@ -1,6 +1,6 @@
 {
   "name": "@merge-api/openclaw-merge-agent-handler",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "OpenClaw plugin that connects agents to hundreds of enterprise tools (Jira, Salesforce, Slack, Gong, Workday, GitHub, etc.) via Merge Agent Handler.",
   "license": "MIT",
   "homepage": "https://docs.merge.dev/merge-agent-handler/local-agent-use/setup-your-agent-locally",

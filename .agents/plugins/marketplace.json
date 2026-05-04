@@ -1,0 +1,32 @@
+{
+  "name": "merge-plugins",
+  "description": "Merge Agent Handler plugin for Codex — connect to hundreds of enterprise tools (Jira, Salesforce, Slack, Gong, Workday, GitHub, etc.)",
+  "owner": {
+    "name": "Merge",
+    "url": "https://merge.dev"
+  },
+  "interface": {
+    "displayName": "Merge Plugins",
+    "shortDescription": "Connect Codex to enterprise tools via Merge Agent Handler"
+  },
+  "plugins": [
+    {
+      "name": "merge-agent-handler",
+      "description": "Connect Codex to hundreds of enterprise tools (Jira, Salesforce, Slack, Gong, Workday, etc.) via the Merge CLI",
+      "author": {
+        "name": "Merge",
+        "url": "https://merge.dev"
+      },
+      "category": "Productivity",
+      "homepage": "https://docs.merge.dev/merge-agent-handler/local-agent-use/setup-your-agent-locally",
+      "source": {
+        "source": "local",
+        "path": "./codex"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "name": "merge-agent-handler",
+  "version": "2.0.0",
+  "description": "Connect Codex to hundreds of enterprise tools (Jira, Salesforce, Slack, Gong, Workday, etc.) via the Merge CLI",
+  "author": {
+    "name": "Merge",
+    "url": "https://merge.dev"
+  },
+  "homepage": "https://docs.merge.dev/merge-agent-handler/local-agent-use/setup-your-agent-locally",
+  "repository": "https://github.com/merge-api/ah-plugins",
+  "license": "MIT",
+  "keywords": [
+    "merge",
+    "agent-handler",
+    "enterprise",
+    "jira",
+    "salesforce",
+    "hubspot",
+    "slack",
+    "gong",
+    "workday",
+    "github",
+    "tool-calling",
+    "enterprise-integration",
+    "codex-plugin"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Merge Agent Handler",
+    "shortDescription": "Connect Codex to enterprise tools via Merge",
+    "longDescription": "Merge Agent Handler gives Codex secure, managed access to hundreds of enterprise applications — Jira, Salesforce, HubSpot, Slack, Gong, Workday, GitHub, NetSuite, and more — through a single integration. The plugin runs the Merge CLI to install, authenticate, and configure access.",
+    "developerName": "Merge",
+    "category": "Productivity",
+    "websiteURL": "https://merge.dev/agent-handler",
+    "defaultPrompt": [
+      "List the issues assigned to me in Jira.",
+      "Find Salesforce contacts at acme.com.",
+      "Send a Slack message to #engineering.",
+      "Show my recent Gong calls."
+    ],
+    "brandColor": "#1A1AFF",
+    "logo": "./assets/merge-logo.png"
+  }
+}

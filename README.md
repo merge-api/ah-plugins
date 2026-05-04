@@ -10,17 +10,18 @@ Each plugin is a thin wrapper around the [Merge CLI](https://docs.merge.dev/merg
 
 ## Plugins
 
-| Plugin | Agent | Setup command |
-|--------|-------|---------------|
+| Plugin | Agent | How to trigger setup |
+|--------|-------|----------------------|
 | [**cursor/**](cursor/) | [Cursor](https://cursor.com) | `/setup` |
 | [**claude-code/**](claude-code/) | [Claude Code](https://docs.anthropic.com/en/docs/claude-code) / [Cowork](https://claude.ai/cowork) | `/merge-agent-handler:setup` |
+| [**codex/**](codex/) | [Codex](https://developers.openai.com/codex/) | Ask Codex to "set up Merge Agent Handler" |
 
-After installing the plugin, run the setup command in your agent's chat. It runs:
+After installing the plugin, trigger setup in your agent's chat. It runs:
 
 ```bash
 pipx install merge-api    # install the Merge CLI (requires Python 3.10+)
 merge login               # OAuth in browser
-merge setup <agent>       # writes config for the agent (claude-code or cursor)
+merge setup <target>      # claude-code, cursor, or agents-md (Codex / Aider / any AGENTS.md agent)
 ```
 
 You can also run those commands yourself if you prefer.

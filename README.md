@@ -2,53 +2,44 @@
 
 Official plugins that connect AI coding agents to enterprise tools via [Merge Agent Handler](https://merge.dev/agent-handler).
 
+Each plugin is a thin wrapper around the [Merge CLI](https://docs.merge.dev/merge-agent-handler/local-agent-use/setup-your-agent-locally) — the CLI handles installation, OAuth, and writing the right config for your agent of choice.
+
 ## What is Merge Agent Handler?
 
-[Merge Agent Handler](https://merge.dev/agent-handler) gives AI agents secure, managed access to hundreds of enterprise applications through a single API and the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/).
+[Merge Agent Handler](https://merge.dev/agent-handler) gives AI agents secure, managed access to hundreds of enterprise applications — Jira, Salesforce, HubSpot, Slack, Gong, Workday, GitHub, NetSuite, and more — through a single integration.
 
-Instead of building and maintaining individual integrations, your agent connects to Merge and gets instant access to tools across your entire software stack — from everyday apps like Jira, Salesforce, Slack, and GitHub to enterprise systems that have never been accessible to AI agents before, like Workday, NetSuite, Tripadvisor, and more. [See all available connectors](https://docs.ah.merge.dev/connectors).
+## Plugins
 
-Each integration is exposed as a set of callable tools (e.g., `jira__create_issue`, `salesforce__search_contacts`, `gong__list_calls`) that your agent can discover, authenticate, and execute.
+| Plugin | Agent | Setup command |
+|--------|-------|---------------|
+| [**cursor/**](cursor/) | [Cursor](https://cursor.com) | `/setup` |
+| [**claude-code/**](claude-code/) | [Claude Code](https://docs.anthropic.com/en/docs/claude-code) / [Cowork](https://claude.ai/cowork) | `/merge-agent-handler:setup` |
 
-### Key Concepts
+After installing the plugin, run the setup command in your agent's chat. It runs:
 
-| Concept | What it is |
-|---------|------------|
-| **Registered User** | An identity in Merge that represents a person or service account. Tracks which third-party apps they've authenticated with. When a tool is called, it acts on behalf of a specific Registered User — using their authenticated connections to read or write data. |
-| **Tool Pack** | A bundle of connectors that defines which integrations your agent can access. Each Tool Pack contains one or more connectors (e.g., Jira + Slack + Gong) and exposes their capabilities as callable MCP tools. |
-| **Connector** | A specific third-party integration (e.g., Jira, Salesforce, Gong). Each connector provides a set of tools for reading and writing data in that service. |
-| **MCP Tool** | A single callable operation exposed by a connector — like `jira__create_issue` or `gong__list_calls`. Tools are discovered dynamically and follow the [Model Context Protocol](https://modelcontextprotocol.io/) standard. |
-| **Link Token** | A one-time URL used to authenticate a connector. When a user clicks the link, they complete an OAuth flow to connect their account (e.g., sign in to Jira). After that, the agent can access their data. |
+```bash
+pipx install merge-api    # install the Merge CLI (requires Python 3.10+)
+merge login               # OAuth in browser
+merge setup <agent>       # writes config for the agent (claude-code or cursor)
+```
 
-### How It Works
+You can also run those commands yourself if you prefer.
 
-1. **Create a Registered User** — set up an identity for yourself or your service
-2. **Create a Tool Pack** — bundle the connectors you want (e.g., Jira + Slack + Gong)
-3. **Authenticate** — click a link to connect each third-party account via OAuth
-4. **Use tools** — your agent discovers and calls tools like `jira__create_issue` or `gong__list_calls`
+## Usage
 
-All authentication is per-user, so each person connects their own accounts and the agent acts on their behalf.
+After setup, just ask your agent:
 
-## Available Plugins
+- "List the issues assigned to me in Jira."
+- "Find Salesforce contacts at acme.com."
+- "Send a Slack message to #engineering."
+- "Show my recent Gong calls."
 
-| Plugin | Agent | Status |
-|--------|-------|--------|
-| [**cursor/**](cursor/) | [Cursor](https://cursor.com) | Available |
-| [**claude-code/**](claude-code/) | [Claude Code](https://docs.anthropic.com/en/docs/claude-code) / [Cowork](https://claude.ai/cowork) | Available |
+The first time you use a connector, you'll get a Magic Link to authenticate that service via OAuth. After that, your agent can call tools on your behalf.
 
-## Getting Started
+## Resources
 
-See the README in each plugin directory for installation and usage instructions.
-
-### Getting an API Key
-
-Sign up at [ah.merge.dev/login](https://ah.merge.dev/login) to get your `MERGE_API_KEY` (Production or Test Access Key).
-
-### Resources
-
-- [Agent Handler Overview](https://docs.ah.merge.dev/Overview/Agent-Handler-intro)
-- [API Reference](https://docs.ah.merge.dev/api-reference/overview)
-- [Dashboard](https://ah.merge.dev/)
+- [Set up your agent locally](https://docs.merge.dev/merge-agent-handler/local-agent-use/setup-your-agent-locally)
+- [Merge Agent Handler docs](https://docs.merge.dev/merge-agent-handler)
 - [merge.dev/agent-handler](https://merge.dev/agent-handler)
 
 ## License

@@ -55,31 +55,6 @@ merge search-tools "list issues"   # confirm auth works
 
 See the full guide: [Set up your agent locally](https://docs.merge.dev/merge-agent-handler/local-agent-use/setup-your-agent-locally).
 
-## Publishing this plugin
-
-This is a multi-plugin repo, so [ClawHub](https://clawhub.ai)'s `owner/repo` form won't work — the `package.json` lives at `openclaw/`, not the repo root. Publish from the subdirectory and override the source metadata so the registry still records the correct repo:
-
-```bash
-# from repo root, after merging to main and tagging v2.0.0
-git checkout main && git pull
-cd openclaw
-
-# build once so dist/ is fresh
-npm install && npm run build
-
-# dry-run to preview the upload
-clawhub package publish . --dry-run \
-  --source-repo merge-api/ah-plugins \
-  --source-ref v2.0.0
-
-# real publish
-clawhub package publish . \
-  --source-repo merge-api/ah-plugins \
-  --source-ref v2.0.0
-```
-
-See [ClawHub: Publish a plugin from GitHub](https://docs.openclaw.ai/tools/clawhub#publish-a-plugin-from-github).
-
 ## Resources
 
 - [OpenClaw docs](https://docs.openclaw.ai)

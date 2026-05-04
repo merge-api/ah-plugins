@@ -1,0 +1,59 @@
+{
+  "name": "@merge-api/openclaw-merge-agent-handler",
+  "version": "2.0.0",
+  "description": "OpenClaw plugin that connects agents to hundreds of enterprise tools (Jira, Salesforce, Slack, Gong, Workday, GitHub, etc.) via Merge Agent Handler.",
+  "license": "MIT",
+  "homepage": "https://docs.merge.dev/merge-agent-handler/local-agent-use/setup-your-agent-locally",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/merge-api/ah-plugins.git",
+    "directory": "openclaw"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "files": [
+    "src",
+    "dist",
+    "skills",
+    "assets",
+    "openclaw.plugin.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p .",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "openclaw",
+    "openclaw-plugin",
+    "clawhub",
+    "merge",
+    "agent-handler",
+    "enterprise",
+    "jira",
+    "salesforce",
+    "hubspot",
+    "slack",
+    "gong",
+    "workday",
+    "github"
+  ],
+  "peerDependencies": {
+    "openclaw": ">=2026.3.24-beta.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  },
+  "openclaw": {
+    "extensions": ["./src/index.ts"],
+    "runtimeExtensions": ["./dist/index.js"],
+    "compat": {
+      "pluginApi": ">=2026.3.24-beta.2",
+      "minGatewayVersion": "2026.3.24-beta.2"
+    },
+    "build": {
+      "openclawVersion": "2026.3.24-beta.2",
+      "pluginSdkVersion": "2026.3.24-beta.2"
+    }
+  }
+}

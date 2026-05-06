@@ -31,14 +31,20 @@
     "longDescription": "Merge Agent Handler gives Codex secure, managed access to hundreds of enterprise applications — Jira, Salesforce, HubSpot, Slack, Gong, Workday, GitHub, NetSuite, and more — through a single integration. The plugin runs the Merge CLI to install, authenticate, and configure access.",
     "developerName": "Merge",
     "category": "Productivity",
-    "websiteURL": "https://merge.dev/agent-handler",
-    "defaultPrompt": [
-      "List the issues assigned to me in Jira.",
-      "Find Salesforce contacts at acme.com.",
-      "Send a Slack message to #engineering.",
-      "Show my recent Gong calls."
+    "capabilities": [
+      "Read",
+      "Write"
     ],
-    "brandColor": "#1A1AFF",
+    "websiteURL": "https://merge.dev/agent-handler",
+    "privacyPolicyURL": "https://www.merge.dev/legal/privacy-policy",
+    "termsOfServiceURL": "https://www.merge.dev/legal/terms",
+    "defaultPrompt": [
+      "Set up Merge Agent Handler for Codex.",
+      "List the issues assigned to me in Jira.",
+      "Find Salesforce contacts at acme.com."
+    ],
+    "brandColor": "#F9F7F4",
+    "composerIcon": "./assets/merge-logo.png",
     "logo": "./assets/merge-logo.png"
   }
 }
